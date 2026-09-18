@@ -1,0 +1,4542 @@
+{
+  "version": "v1.0",
+  "listeners": [
+    {
+      "id": "$listener",
+      "doc": "Webhook listener that dispatches each inbound QuickBooks CloudEvents notification to the concrete service type matching its entity.",
+      "type": {
+        "name": "Listener"
+      },
+      "services": [
+        "$companyCurrency",
+        "$account",
+        "$estimate",
+        "$invoice",
+        "$customer",
+        "$taxAgency",
+        "$journalEntry",
+        "$item",
+        "$department",
+        "$refundReceipt",
+        "$currency",
+        "$billPayment",
+        "$creditMemo",
+        "$budget",
+        "$preferences",
+        "$timeActivity",
+        "$deposit",
+        "$journalCode",
+        "$purchase",
+        "$vendorCredit",
+        "$term",
+        "$vendor",
+        "$payment",
+        "$salesReceipt",
+        "$employee",
+        "$changeOrder",
+        "$transfer",
+        "$bill",
+        "$purchaseOrder",
+        "$paymentMethod",
+        "$class"
+      ],
+      "multipleServicesAllowed": true,
+      "multipleServicesOfSameTypeAllowed": false
+    }
+  ],
+  "serviceTypes": [
+    {
+      "id": "$companyCurrency",
+      "doc": "Receives QuickBooks company currency events: updated, deleted, and created.",
+      "type": {
+        "name": "CompanyCurrencyService"
+      },
+      "concrete": false,
+      "multipleListenersAllowed": true,
+      "handlers": {
+        "backedByConcreteType": false,
+        "options": [
+          {
+            "id": "$companyCurrency.onCompanyCurrencyUpdated",
+            "name": "onCompanyCurrencyUpdated",
+            "kind": "remote",
+            "doc": "Triggered on Company currency updated.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$companyCurrency.onCompanyCurrencyUpdated.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$companyCurrency.onCompanyCurrencyUpdated.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$companyCurrency.onCompanyCurrencyDeleted",
+            "name": "onCompanyCurrencyDeleted",
+            "kind": "remote",
+            "doc": "Triggered on Company currency deleted.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$companyCurrency.onCompanyCurrencyDeleted.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$companyCurrency.onCompanyCurrencyDeleted.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$companyCurrency.onCompanyCurrencyCreated",
+            "name": "onCompanyCurrencyCreated",
+            "kind": "remote",
+            "doc": "Triggered on Company currency created.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$companyCurrency.onCompanyCurrencyCreated.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$companyCurrency.onCompanyCurrencyCreated.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "rules": [
+        {
+          "id": "$atLeastOneCompanyCurrencyHandler",
+          "rule": "structure.atLeastOne",
+          "message": "A CompanyCurrencyService must declare at least one of onCompanyCurrencyUpdated, onCompanyCurrencyDeleted, onCompanyCurrencyCreated, otherwise this event is received and silently dropped.",
+          "subjects": [
+            {
+              "kind": "handler",
+              "id": "$companyCurrency.onCompanyCurrencyUpdated"
+            },
+            {
+              "kind": "handler",
+              "id": "$companyCurrency.onCompanyCurrencyDeleted"
+            },
+            {
+              "kind": "handler",
+              "id": "$companyCurrency.onCompanyCurrencyCreated"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "$account",
+      "doc": "Receives QuickBooks account events: merged, updated, created, and deleted.",
+      "type": {
+        "name": "AccountService"
+      },
+      "concrete": false,
+      "multipleListenersAllowed": true,
+      "handlers": {
+        "backedByConcreteType": false,
+        "options": [
+          {
+            "id": "$account.onAccountMerged",
+            "name": "onAccountMerged",
+            "kind": "remote",
+            "doc": "Triggered on Account merged.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$account.onAccountMerged.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$account.onAccountMerged.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$account.onAccountUpdated",
+            "name": "onAccountUpdated",
+            "kind": "remote",
+            "doc": "Triggered on Account updated.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$account.onAccountUpdated.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$account.onAccountUpdated.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$account.onAccountCreated",
+            "name": "onAccountCreated",
+            "kind": "remote",
+            "doc": "Triggered on Account created.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$account.onAccountCreated.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$account.onAccountCreated.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$account.onAccountDeleted",
+            "name": "onAccountDeleted",
+            "kind": "remote",
+            "doc": "Triggered on Account deleted.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$account.onAccountDeleted.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$account.onAccountDeleted.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "rules": [
+        {
+          "id": "$atLeastOneAccountHandler",
+          "rule": "structure.atLeastOne",
+          "message": "An AccountService must declare at least one of onAccountMerged, onAccountUpdated, onAccountCreated, onAccountDeleted, otherwise this event is received and silently dropped.",
+          "subjects": [
+            {
+              "kind": "handler",
+              "id": "$account.onAccountMerged"
+            },
+            {
+              "kind": "handler",
+              "id": "$account.onAccountUpdated"
+            },
+            {
+              "kind": "handler",
+              "id": "$account.onAccountCreated"
+            },
+            {
+              "kind": "handler",
+              "id": "$account.onAccountDeleted"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "$estimate",
+      "doc": "Receives QuickBooks estimate events: created, emailed, deleted, and updated.",
+      "type": {
+        "name": "EstimateService"
+      },
+      "concrete": false,
+      "multipleListenersAllowed": true,
+      "handlers": {
+        "backedByConcreteType": false,
+        "options": [
+          {
+            "id": "$estimate.onEstimateCreated",
+            "name": "onEstimateCreated",
+            "kind": "remote",
+            "doc": "Triggered on Estimate created.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$estimate.onEstimateCreated.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$estimate.onEstimateCreated.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$estimate.onEstimateEmailed",
+            "name": "onEstimateEmailed",
+            "kind": "remote",
+            "doc": "Triggered on Estimate emailed.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$estimate.onEstimateEmailed.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$estimate.onEstimateEmailed.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$estimate.onEstimateDeleted",
+            "name": "onEstimateDeleted",
+            "kind": "remote",
+            "doc": "Triggered on Estimate deleted.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$estimate.onEstimateDeleted.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$estimate.onEstimateDeleted.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$estimate.onEstimateUpdated",
+            "name": "onEstimateUpdated",
+            "kind": "remote",
+            "doc": "Triggered on Estimate updated.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$estimate.onEstimateUpdated.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$estimate.onEstimateUpdated.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "rules": [
+        {
+          "id": "$atLeastOneEstimateHandler",
+          "rule": "structure.atLeastOne",
+          "message": "An EstimateService must declare at least one of onEstimateCreated, onEstimateEmailed, onEstimateDeleted, onEstimateUpdated, otherwise this event is received and silently dropped.",
+          "subjects": [
+            {
+              "kind": "handler",
+              "id": "$estimate.onEstimateCreated"
+            },
+            {
+              "kind": "handler",
+              "id": "$estimate.onEstimateEmailed"
+            },
+            {
+              "kind": "handler",
+              "id": "$estimate.onEstimateDeleted"
+            },
+            {
+              "kind": "handler",
+              "id": "$estimate.onEstimateUpdated"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "$invoice",
+      "doc": "Receives QuickBooks invoice events: created, updated, deleted, emailed, and voided.",
+      "type": {
+        "name": "InvoiceService"
+      },
+      "concrete": false,
+      "multipleListenersAllowed": true,
+      "handlers": {
+        "backedByConcreteType": false,
+        "options": [
+          {
+            "id": "$invoice.onInvoiceCreated",
+            "name": "onInvoiceCreated",
+            "kind": "remote",
+            "doc": "Triggered on Invoice created.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$invoice.onInvoiceCreated.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$invoice.onInvoiceCreated.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$invoice.onInvoiceUpdated",
+            "name": "onInvoiceUpdated",
+            "kind": "remote",
+            "doc": "Triggered on Invoice updated.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$invoice.onInvoiceUpdated.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$invoice.onInvoiceUpdated.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$invoice.onInvoiceDeleted",
+            "name": "onInvoiceDeleted",
+            "kind": "remote",
+            "doc": "Triggered on Invoice deleted.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$invoice.onInvoiceDeleted.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$invoice.onInvoiceDeleted.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$invoice.onInvoiceEmailed",
+            "name": "onInvoiceEmailed",
+            "kind": "remote",
+            "doc": "Triggered on Invoice emailed.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$invoice.onInvoiceEmailed.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$invoice.onInvoiceEmailed.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$invoice.onInvoiceVoided",
+            "name": "onInvoiceVoided",
+            "kind": "remote",
+            "doc": "Triggered on Invoice voided.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$invoice.onInvoiceVoided.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$invoice.onInvoiceVoided.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "rules": [
+        {
+          "id": "$atLeastOneInvoiceHandler",
+          "rule": "structure.atLeastOne",
+          "message": "An InvoiceService must declare at least one of onInvoiceCreated, onInvoiceUpdated, onInvoiceDeleted, onInvoiceEmailed, onInvoiceVoided, otherwise this event is received and silently dropped.",
+          "subjects": [
+            {
+              "kind": "handler",
+              "id": "$invoice.onInvoiceCreated"
+            },
+            {
+              "kind": "handler",
+              "id": "$invoice.onInvoiceUpdated"
+            },
+            {
+              "kind": "handler",
+              "id": "$invoice.onInvoiceDeleted"
+            },
+            {
+              "kind": "handler",
+              "id": "$invoice.onInvoiceEmailed"
+            },
+            {
+              "kind": "handler",
+              "id": "$invoice.onInvoiceVoided"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "$customer",
+      "doc": "Receives QuickBooks customer events: deleted, created, updated, and merged.",
+      "type": {
+        "name": "CustomerService"
+      },
+      "concrete": false,
+      "multipleListenersAllowed": true,
+      "handlers": {
+        "backedByConcreteType": false,
+        "options": [
+          {
+            "id": "$customer.onCustomerDeleted",
+            "name": "onCustomerDeleted",
+            "kind": "remote",
+            "doc": "Triggered on Customer deleted.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$customer.onCustomerDeleted.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$customer.onCustomerDeleted.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$customer.onCustomerCreated",
+            "name": "onCustomerCreated",
+            "kind": "remote",
+            "doc": "Triggered on Customer created.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$customer.onCustomerCreated.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$customer.onCustomerCreated.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$customer.onCustomerUpdated",
+            "name": "onCustomerUpdated",
+            "kind": "remote",
+            "doc": "Triggered on Customer updated.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$customer.onCustomerUpdated.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$customer.onCustomerUpdated.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$customer.onCustomerMerged",
+            "name": "onCustomerMerged",
+            "kind": "remote",
+            "doc": "Triggered on Customer merged.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$customer.onCustomerMerged.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$customer.onCustomerMerged.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "rules": [
+        {
+          "id": "$atLeastOneCustomerHandler",
+          "rule": "structure.atLeastOne",
+          "message": "A CustomerService must declare at least one of onCustomerDeleted, onCustomerCreated, onCustomerUpdated, onCustomerMerged, otherwise this event is received and silently dropped.",
+          "subjects": [
+            {
+              "kind": "handler",
+              "id": "$customer.onCustomerDeleted"
+            },
+            {
+              "kind": "handler",
+              "id": "$customer.onCustomerCreated"
+            },
+            {
+              "kind": "handler",
+              "id": "$customer.onCustomerUpdated"
+            },
+            {
+              "kind": "handler",
+              "id": "$customer.onCustomerMerged"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "$taxAgency",
+      "doc": "Receives QuickBooks tax agency events: updated and created.",
+      "type": {
+        "name": "TaxAgencyService"
+      },
+      "concrete": false,
+      "multipleListenersAllowed": true,
+      "handlers": {
+        "backedByConcreteType": false,
+        "options": [
+          {
+            "id": "$taxAgency.onTaxAgencyUpdated",
+            "name": "onTaxAgencyUpdated",
+            "kind": "remote",
+            "doc": "Triggered on Tax agency updated.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$taxAgency.onTaxAgencyUpdated.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$taxAgency.onTaxAgencyUpdated.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$taxAgency.onTaxAgencyCreated",
+            "name": "onTaxAgencyCreated",
+            "kind": "remote",
+            "doc": "Triggered on Tax agency created.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$taxAgency.onTaxAgencyCreated.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$taxAgency.onTaxAgencyCreated.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "rules": [
+        {
+          "id": "$atLeastOneTaxAgencyHandler",
+          "rule": "structure.atLeastOne",
+          "message": "A TaxAgencyService must declare at least one of onTaxAgencyUpdated, onTaxAgencyCreated, otherwise this event is received and silently dropped.",
+          "subjects": [
+            {
+              "kind": "handler",
+              "id": "$taxAgency.onTaxAgencyUpdated"
+            },
+            {
+              "kind": "handler",
+              "id": "$taxAgency.onTaxAgencyCreated"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "$journalEntry",
+      "doc": "Receives QuickBooks journal entry events: updated, deleted, and created.",
+      "type": {
+        "name": "JournalEntryService"
+      },
+      "concrete": false,
+      "multipleListenersAllowed": true,
+      "handlers": {
+        "backedByConcreteType": false,
+        "options": [
+          {
+            "id": "$journalEntry.onJournalEntryUpdated",
+            "name": "onJournalEntryUpdated",
+            "kind": "remote",
+            "doc": "Triggered on Journal entry updated.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$journalEntry.onJournalEntryUpdated.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$journalEntry.onJournalEntryUpdated.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$journalEntry.onJournalEntryDeleted",
+            "name": "onJournalEntryDeleted",
+            "kind": "remote",
+            "doc": "Triggered on Journal entry deleted.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$journalEntry.onJournalEntryDeleted.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$journalEntry.onJournalEntryDeleted.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$journalEntry.onJournalEntryCreated",
+            "name": "onJournalEntryCreated",
+            "kind": "remote",
+            "doc": "Triggered on Journal entry created.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$journalEntry.onJournalEntryCreated.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$journalEntry.onJournalEntryCreated.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "rules": [
+        {
+          "id": "$atLeastOneJournalEntryHandler",
+          "rule": "structure.atLeastOne",
+          "message": "A JournalEntryService must declare at least one of onJournalEntryUpdated, onJournalEntryDeleted, onJournalEntryCreated, otherwise this event is received and silently dropped.",
+          "subjects": [
+            {
+              "kind": "handler",
+              "id": "$journalEntry.onJournalEntryUpdated"
+            },
+            {
+              "kind": "handler",
+              "id": "$journalEntry.onJournalEntryDeleted"
+            },
+            {
+              "kind": "handler",
+              "id": "$journalEntry.onJournalEntryCreated"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "$item",
+      "doc": "Receives QuickBooks item events: created, deleted, updated, and merged.",
+      "type": {
+        "name": "ItemService"
+      },
+      "concrete": false,
+      "multipleListenersAllowed": true,
+      "handlers": {
+        "backedByConcreteType": false,
+        "options": [
+          {
+            "id": "$item.onItemCreated",
+            "name": "onItemCreated",
+            "kind": "remote",
+            "doc": "Triggered on Item created.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$item.onItemCreated.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$item.onItemCreated.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$item.onItemDeleted",
+            "name": "onItemDeleted",
+            "kind": "remote",
+            "doc": "Triggered on Item deleted.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$item.onItemDeleted.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$item.onItemDeleted.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$item.onItemUpdated",
+            "name": "onItemUpdated",
+            "kind": "remote",
+            "doc": "Triggered on Item updated.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$item.onItemUpdated.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$item.onItemUpdated.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$item.onItemMerged",
+            "name": "onItemMerged",
+            "kind": "remote",
+            "doc": "Triggered on Item merged.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$item.onItemMerged.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$item.onItemMerged.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "rules": [
+        {
+          "id": "$atLeastOneItemHandler",
+          "rule": "structure.atLeastOne",
+          "message": "An ItemService must declare at least one of onItemCreated, onItemDeleted, onItemUpdated, onItemMerged, otherwise this event is received and silently dropped.",
+          "subjects": [
+            {
+              "kind": "handler",
+              "id": "$item.onItemCreated"
+            },
+            {
+              "kind": "handler",
+              "id": "$item.onItemDeleted"
+            },
+            {
+              "kind": "handler",
+              "id": "$item.onItemUpdated"
+            },
+            {
+              "kind": "handler",
+              "id": "$item.onItemMerged"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "$department",
+      "doc": "Receives QuickBooks department events: created, merged, and updated.",
+      "type": {
+        "name": "DepartmentService"
+      },
+      "concrete": false,
+      "multipleListenersAllowed": true,
+      "handlers": {
+        "backedByConcreteType": false,
+        "options": [
+          {
+            "id": "$department.onDepartmentCreated",
+            "name": "onDepartmentCreated",
+            "kind": "remote",
+            "doc": "Triggered on Department created.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$department.onDepartmentCreated.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$department.onDepartmentCreated.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$department.onDepartmentMerged",
+            "name": "onDepartmentMerged",
+            "kind": "remote",
+            "doc": "Triggered on Department merged.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$department.onDepartmentMerged.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$department.onDepartmentMerged.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$department.onDepartmentUpdated",
+            "name": "onDepartmentUpdated",
+            "kind": "remote",
+            "doc": "Triggered on Department updated.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$department.onDepartmentUpdated.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$department.onDepartmentUpdated.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "rules": [
+        {
+          "id": "$atLeastOneDepartmentHandler",
+          "rule": "structure.atLeastOne",
+          "message": "A DepartmentService must declare at least one of onDepartmentCreated, onDepartmentMerged, onDepartmentUpdated, otherwise this event is received and silently dropped.",
+          "subjects": [
+            {
+              "kind": "handler",
+              "id": "$department.onDepartmentCreated"
+            },
+            {
+              "kind": "handler",
+              "id": "$department.onDepartmentMerged"
+            },
+            {
+              "kind": "handler",
+              "id": "$department.onDepartmentUpdated"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "$refundReceipt",
+      "doc": "Receives QuickBooks refund receipt events: created, deleted, emailed, voided, and updated.",
+      "type": {
+        "name": "RefundReceiptService"
+      },
+      "concrete": false,
+      "multipleListenersAllowed": true,
+      "handlers": {
+        "backedByConcreteType": false,
+        "options": [
+          {
+            "id": "$refundReceipt.onRefundReceiptCreated",
+            "name": "onRefundReceiptCreated",
+            "kind": "remote",
+            "doc": "Triggered on Refund receipt created.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$refundReceipt.onRefundReceiptCreated.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$refundReceipt.onRefundReceiptCreated.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$refundReceipt.onRefundReceiptDeleted",
+            "name": "onRefundReceiptDeleted",
+            "kind": "remote",
+            "doc": "Triggered on Refund receipt deleted.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$refundReceipt.onRefundReceiptDeleted.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$refundReceipt.onRefundReceiptDeleted.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$refundReceipt.onRefundReceiptEmailed",
+            "name": "onRefundReceiptEmailed",
+            "kind": "remote",
+            "doc": "Triggered on Refund receipt emailed.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$refundReceipt.onRefundReceiptEmailed.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$refundReceipt.onRefundReceiptEmailed.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$refundReceipt.onRefundReceiptVoided",
+            "name": "onRefundReceiptVoided",
+            "kind": "remote",
+            "doc": "Triggered on Refund receipt voided.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$refundReceipt.onRefundReceiptVoided.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$refundReceipt.onRefundReceiptVoided.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$refundReceipt.onRefundReceiptUpdated",
+            "name": "onRefundReceiptUpdated",
+            "kind": "remote",
+            "doc": "Triggered on Refund receipt updated.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$refundReceipt.onRefundReceiptUpdated.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$refundReceipt.onRefundReceiptUpdated.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "rules": [
+        {
+          "id": "$atLeastOneRefundReceiptHandler",
+          "rule": "structure.atLeastOne",
+          "message": "A RefundReceiptService must declare at least one of onRefundReceiptCreated, onRefundReceiptDeleted, onRefundReceiptEmailed, onRefundReceiptVoided, onRefundReceiptUpdated, otherwise this event is received and silently dropped.",
+          "subjects": [
+            {
+              "kind": "handler",
+              "id": "$refundReceipt.onRefundReceiptCreated"
+            },
+            {
+              "kind": "handler",
+              "id": "$refundReceipt.onRefundReceiptDeleted"
+            },
+            {
+              "kind": "handler",
+              "id": "$refundReceipt.onRefundReceiptEmailed"
+            },
+            {
+              "kind": "handler",
+              "id": "$refundReceipt.onRefundReceiptVoided"
+            },
+            {
+              "kind": "handler",
+              "id": "$refundReceipt.onRefundReceiptUpdated"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "$currency",
+      "doc": "Receives QuickBooks currency events: created, deleted, and updated.",
+      "type": {
+        "name": "CurrencyService"
+      },
+      "concrete": false,
+      "multipleListenersAllowed": true,
+      "handlers": {
+        "backedByConcreteType": false,
+        "options": [
+          {
+            "id": "$currency.onCurrencyCreated",
+            "name": "onCurrencyCreated",
+            "kind": "remote",
+            "doc": "Triggered on Currency created.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$currency.onCurrencyCreated.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$currency.onCurrencyCreated.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$currency.onCurrencyDeleted",
+            "name": "onCurrencyDeleted",
+            "kind": "remote",
+            "doc": "Triggered on Currency deleted.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$currency.onCurrencyDeleted.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$currency.onCurrencyDeleted.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$currency.onCurrencyUpdated",
+            "name": "onCurrencyUpdated",
+            "kind": "remote",
+            "doc": "Triggered on Currency updated.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$currency.onCurrencyUpdated.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$currency.onCurrencyUpdated.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "rules": [
+        {
+          "id": "$atLeastOneCurrencyHandler",
+          "rule": "structure.atLeastOne",
+          "message": "A CurrencyService must declare at least one of onCurrencyCreated, onCurrencyDeleted, onCurrencyUpdated, otherwise this event is received and silently dropped.",
+          "subjects": [
+            {
+              "kind": "handler",
+              "id": "$currency.onCurrencyCreated"
+            },
+            {
+              "kind": "handler",
+              "id": "$currency.onCurrencyDeleted"
+            },
+            {
+              "kind": "handler",
+              "id": "$currency.onCurrencyUpdated"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "$billPayment",
+      "doc": "Receives QuickBooks bill payment events: created, deleted, voided, and updated.",
+      "type": {
+        "name": "BillPaymentService"
+      },
+      "concrete": false,
+      "multipleListenersAllowed": true,
+      "handlers": {
+        "backedByConcreteType": false,
+        "options": [
+          {
+            "id": "$billPayment.onBillPaymentCreated",
+            "name": "onBillPaymentCreated",
+            "kind": "remote",
+            "doc": "Triggered on Bill payment created.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$billPayment.onBillPaymentCreated.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$billPayment.onBillPaymentCreated.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$billPayment.onBillPaymentDeleted",
+            "name": "onBillPaymentDeleted",
+            "kind": "remote",
+            "doc": "Triggered on Bill payment deleted.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$billPayment.onBillPaymentDeleted.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$billPayment.onBillPaymentDeleted.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$billPayment.onBillPaymentVoided",
+            "name": "onBillPaymentVoided",
+            "kind": "remote",
+            "doc": "Triggered on Bill payment voided.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$billPayment.onBillPaymentVoided.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$billPayment.onBillPaymentVoided.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$billPayment.onBillPaymentUpdated",
+            "name": "onBillPaymentUpdated",
+            "kind": "remote",
+            "doc": "Triggered on Bill payment updated.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$billPayment.onBillPaymentUpdated.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$billPayment.onBillPaymentUpdated.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "rules": [
+        {
+          "id": "$atLeastOneBillPaymentHandler",
+          "rule": "structure.atLeastOne",
+          "message": "A BillPaymentService must declare at least one of onBillPaymentCreated, onBillPaymentDeleted, onBillPaymentVoided, onBillPaymentUpdated, otherwise this event is received and silently dropped.",
+          "subjects": [
+            {
+              "kind": "handler",
+              "id": "$billPayment.onBillPaymentCreated"
+            },
+            {
+              "kind": "handler",
+              "id": "$billPayment.onBillPaymentDeleted"
+            },
+            {
+              "kind": "handler",
+              "id": "$billPayment.onBillPaymentVoided"
+            },
+            {
+              "kind": "handler",
+              "id": "$billPayment.onBillPaymentUpdated"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "$creditMemo",
+      "doc": "Receives QuickBooks credit memo events: updated, voided, emailed, created, and deleted.",
+      "type": {
+        "name": "CreditMemoService"
+      },
+      "concrete": false,
+      "multipleListenersAllowed": true,
+      "handlers": {
+        "backedByConcreteType": false,
+        "options": [
+          {
+            "id": "$creditMemo.onCreditMemoUpdated",
+            "name": "onCreditMemoUpdated",
+            "kind": "remote",
+            "doc": "Triggered on Credit memo updated.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$creditMemo.onCreditMemoUpdated.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$creditMemo.onCreditMemoUpdated.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$creditMemo.onCreditMemoVoided",
+            "name": "onCreditMemoVoided",
+            "kind": "remote",
+            "doc": "Triggered on Credit memo voided.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$creditMemo.onCreditMemoVoided.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$creditMemo.onCreditMemoVoided.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$creditMemo.onCreditMemoEmailed",
+            "name": "onCreditMemoEmailed",
+            "kind": "remote",
+            "doc": "Triggered on Credit memo emailed.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$creditMemo.onCreditMemoEmailed.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$creditMemo.onCreditMemoEmailed.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$creditMemo.onCreditMemoCreated",
+            "name": "onCreditMemoCreated",
+            "kind": "remote",
+            "doc": "Triggered on Credit memo created.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$creditMemo.onCreditMemoCreated.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$creditMemo.onCreditMemoCreated.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$creditMemo.onCreditMemoDeleted",
+            "name": "onCreditMemoDeleted",
+            "kind": "remote",
+            "doc": "Triggered on Credit memo deleted.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$creditMemo.onCreditMemoDeleted.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$creditMemo.onCreditMemoDeleted.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "rules": [
+        {
+          "id": "$atLeastOneCreditMemoHandler",
+          "rule": "structure.atLeastOne",
+          "message": "A CreditMemoService must declare at least one of onCreditMemoUpdated, onCreditMemoVoided, onCreditMemoEmailed, onCreditMemoCreated, onCreditMemoDeleted, otherwise this event is received and silently dropped.",
+          "subjects": [
+            {
+              "kind": "handler",
+              "id": "$creditMemo.onCreditMemoUpdated"
+            },
+            {
+              "kind": "handler",
+              "id": "$creditMemo.onCreditMemoVoided"
+            },
+            {
+              "kind": "handler",
+              "id": "$creditMemo.onCreditMemoEmailed"
+            },
+            {
+              "kind": "handler",
+              "id": "$creditMemo.onCreditMemoCreated"
+            },
+            {
+              "kind": "handler",
+              "id": "$creditMemo.onCreditMemoDeleted"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "$budget",
+      "doc": "Receives QuickBooks budget events: updated and created.",
+      "type": {
+        "name": "BudgetService"
+      },
+      "concrete": false,
+      "multipleListenersAllowed": true,
+      "handlers": {
+        "backedByConcreteType": false,
+        "options": [
+          {
+            "id": "$budget.onBudgetUpdated",
+            "name": "onBudgetUpdated",
+            "kind": "remote",
+            "doc": "Triggered on Budget updated.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$budget.onBudgetUpdated.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$budget.onBudgetUpdated.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$budget.onBudgetCreated",
+            "name": "onBudgetCreated",
+            "kind": "remote",
+            "doc": "Triggered on Budget created.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$budget.onBudgetCreated.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$budget.onBudgetCreated.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "rules": [
+        {
+          "id": "$atLeastOneBudgetHandler",
+          "rule": "structure.atLeastOne",
+          "message": "A BudgetService must declare at least one of onBudgetUpdated, onBudgetCreated, otherwise this event is received and silently dropped.",
+          "subjects": [
+            {
+              "kind": "handler",
+              "id": "$budget.onBudgetUpdated"
+            },
+            {
+              "kind": "handler",
+              "id": "$budget.onBudgetCreated"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "$preferences",
+      "doc": "Receives QuickBooks preferences events: updated.",
+      "type": {
+        "name": "PreferencesService"
+      },
+      "concrete": false,
+      "multipleListenersAllowed": true,
+      "handlers": {
+        "backedByConcreteType": false,
+        "options": [
+          {
+            "id": "$preferences.onPreferencesUpdated",
+            "name": "onPreferencesUpdated",
+            "kind": "remote",
+            "doc": "Triggered on Preferences updated.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$preferences.onPreferencesUpdated.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$preferences.onPreferencesUpdated.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "rules": [
+        {
+          "id": "$atLeastOnePreferencesHandler",
+          "rule": "structure.atLeastOne",
+          "message": "A PreferencesService must declare at least one of onPreferencesUpdated, otherwise this event is received and silently dropped.",
+          "subjects": [
+            {
+              "kind": "handler",
+              "id": "$preferences.onPreferencesUpdated"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "$timeActivity",
+      "doc": "Receives QuickBooks time activity events: created, updated, and deleted.",
+      "type": {
+        "name": "TimeActivityService"
+      },
+      "concrete": false,
+      "multipleListenersAllowed": true,
+      "handlers": {
+        "backedByConcreteType": false,
+        "options": [
+          {
+            "id": "$timeActivity.onTimeActivityCreated",
+            "name": "onTimeActivityCreated",
+            "kind": "remote",
+            "doc": "Triggered on Time activity created.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$timeActivity.onTimeActivityCreated.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$timeActivity.onTimeActivityCreated.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$timeActivity.onTimeActivityUpdated",
+            "name": "onTimeActivityUpdated",
+            "kind": "remote",
+            "doc": "Triggered on Time activity updated.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$timeActivity.onTimeActivityUpdated.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$timeActivity.onTimeActivityUpdated.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$timeActivity.onTimeActivityDeleted",
+            "name": "onTimeActivityDeleted",
+            "kind": "remote",
+            "doc": "Triggered on Time activity deleted.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$timeActivity.onTimeActivityDeleted.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$timeActivity.onTimeActivityDeleted.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "rules": [
+        {
+          "id": "$atLeastOneTimeActivityHandler",
+          "rule": "structure.atLeastOne",
+          "message": "A TimeActivityService must declare at least one of onTimeActivityCreated, onTimeActivityUpdated, onTimeActivityDeleted, otherwise this event is received and silently dropped.",
+          "subjects": [
+            {
+              "kind": "handler",
+              "id": "$timeActivity.onTimeActivityCreated"
+            },
+            {
+              "kind": "handler",
+              "id": "$timeActivity.onTimeActivityUpdated"
+            },
+            {
+              "kind": "handler",
+              "id": "$timeActivity.onTimeActivityDeleted"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "$deposit",
+      "doc": "Receives QuickBooks deposit events: created, updated, and deleted.",
+      "type": {
+        "name": "DepositService"
+      },
+      "concrete": false,
+      "multipleListenersAllowed": true,
+      "handlers": {
+        "backedByConcreteType": false,
+        "options": [
+          {
+            "id": "$deposit.onDepositCreated",
+            "name": "onDepositCreated",
+            "kind": "remote",
+            "doc": "Triggered on Deposit created.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$deposit.onDepositCreated.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$deposit.onDepositCreated.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$deposit.onDepositUpdated",
+            "name": "onDepositUpdated",
+            "kind": "remote",
+            "doc": "Triggered on Deposit updated.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$deposit.onDepositUpdated.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$deposit.onDepositUpdated.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$deposit.onDepositDeleted",
+            "name": "onDepositDeleted",
+            "kind": "remote",
+            "doc": "Triggered on Deposit deleted.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$deposit.onDepositDeleted.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$deposit.onDepositDeleted.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "rules": [
+        {
+          "id": "$atLeastOneDepositHandler",
+          "rule": "structure.atLeastOne",
+          "message": "A DepositService must declare at least one of onDepositCreated, onDepositUpdated, onDepositDeleted, otherwise this event is received and silently dropped.",
+          "subjects": [
+            {
+              "kind": "handler",
+              "id": "$deposit.onDepositCreated"
+            },
+            {
+              "kind": "handler",
+              "id": "$deposit.onDepositUpdated"
+            },
+            {
+              "kind": "handler",
+              "id": "$deposit.onDepositDeleted"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "$journalCode",
+      "doc": "Receives QuickBooks journal code events: updated and created.",
+      "type": {
+        "name": "JournalCodeService"
+      },
+      "concrete": false,
+      "multipleListenersAllowed": true,
+      "handlers": {
+        "backedByConcreteType": false,
+        "options": [
+          {
+            "id": "$journalCode.onJournalCodeUpdated",
+            "name": "onJournalCodeUpdated",
+            "kind": "remote",
+            "doc": "Triggered on Journal code updated.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$journalCode.onJournalCodeUpdated.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$journalCode.onJournalCodeUpdated.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$journalCode.onJournalCodeCreated",
+            "name": "onJournalCodeCreated",
+            "kind": "remote",
+            "doc": "Triggered on Journal code created.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$journalCode.onJournalCodeCreated.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$journalCode.onJournalCodeCreated.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "rules": [
+        {
+          "id": "$atLeastOneJournalCodeHandler",
+          "rule": "structure.atLeastOne",
+          "message": "A JournalCodeService must declare at least one of onJournalCodeUpdated, onJournalCodeCreated, otherwise this event is received and silently dropped.",
+          "subjects": [
+            {
+              "kind": "handler",
+              "id": "$journalCode.onJournalCodeUpdated"
+            },
+            {
+              "kind": "handler",
+              "id": "$journalCode.onJournalCodeCreated"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "$purchase",
+      "doc": "Receives QuickBooks purchase events: voided, updated, deleted, and created.",
+      "type": {
+        "name": "PurchaseService"
+      },
+      "concrete": false,
+      "multipleListenersAllowed": true,
+      "handlers": {
+        "backedByConcreteType": false,
+        "options": [
+          {
+            "id": "$purchase.onPurchaseVoided",
+            "name": "onPurchaseVoided",
+            "kind": "remote",
+            "doc": "Triggered on Purchase voided.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$purchase.onPurchaseVoided.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$purchase.onPurchaseVoided.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$purchase.onPurchaseUpdated",
+            "name": "onPurchaseUpdated",
+            "kind": "remote",
+            "doc": "Triggered on Purchase updated.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$purchase.onPurchaseUpdated.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$purchase.onPurchaseUpdated.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$purchase.onPurchaseDeleted",
+            "name": "onPurchaseDeleted",
+            "kind": "remote",
+            "doc": "Triggered on Purchase deleted.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$purchase.onPurchaseDeleted.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$purchase.onPurchaseDeleted.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$purchase.onPurchaseCreated",
+            "name": "onPurchaseCreated",
+            "kind": "remote",
+            "doc": "Triggered on Purchase created.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$purchase.onPurchaseCreated.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$purchase.onPurchaseCreated.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "rules": [
+        {
+          "id": "$atLeastOnePurchaseHandler",
+          "rule": "structure.atLeastOne",
+          "message": "A PurchaseService must declare at least one of onPurchaseVoided, onPurchaseUpdated, onPurchaseDeleted, onPurchaseCreated, otherwise this event is received and silently dropped.",
+          "subjects": [
+            {
+              "kind": "handler",
+              "id": "$purchase.onPurchaseVoided"
+            },
+            {
+              "kind": "handler",
+              "id": "$purchase.onPurchaseUpdated"
+            },
+            {
+              "kind": "handler",
+              "id": "$purchase.onPurchaseDeleted"
+            },
+            {
+              "kind": "handler",
+              "id": "$purchase.onPurchaseCreated"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "$vendorCredit",
+      "doc": "Receives QuickBooks vendor credit events: created, deleted, and updated.",
+      "type": {
+        "name": "VendorCreditService"
+      },
+      "concrete": false,
+      "multipleListenersAllowed": true,
+      "handlers": {
+        "backedByConcreteType": false,
+        "options": [
+          {
+            "id": "$vendorCredit.onVendorCreditCreated",
+            "name": "onVendorCreditCreated",
+            "kind": "remote",
+            "doc": "Triggered on Vendor credit created.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$vendorCredit.onVendorCreditCreated.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$vendorCredit.onVendorCreditCreated.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$vendorCredit.onVendorCreditDeleted",
+            "name": "onVendorCreditDeleted",
+            "kind": "remote",
+            "doc": "Triggered on Vendor credit deleted.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$vendorCredit.onVendorCreditDeleted.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$vendorCredit.onVendorCreditDeleted.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$vendorCredit.onVendorCreditUpdated",
+            "name": "onVendorCreditUpdated",
+            "kind": "remote",
+            "doc": "Triggered on Vendor credit updated.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$vendorCredit.onVendorCreditUpdated.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$vendorCredit.onVendorCreditUpdated.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "rules": [
+        {
+          "id": "$atLeastOneVendorCreditHandler",
+          "rule": "structure.atLeastOne",
+          "message": "A VendorCreditService must declare at least one of onVendorCreditCreated, onVendorCreditDeleted, onVendorCreditUpdated, otherwise this event is received and silently dropped.",
+          "subjects": [
+            {
+              "kind": "handler",
+              "id": "$vendorCredit.onVendorCreditCreated"
+            },
+            {
+              "kind": "handler",
+              "id": "$vendorCredit.onVendorCreditDeleted"
+            },
+            {
+              "kind": "handler",
+              "id": "$vendorCredit.onVendorCreditUpdated"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "$term",
+      "doc": "Receives QuickBooks term events: created and updated.",
+      "type": {
+        "name": "TermService"
+      },
+      "concrete": false,
+      "multipleListenersAllowed": true,
+      "handlers": {
+        "backedByConcreteType": false,
+        "options": [
+          {
+            "id": "$term.onTermCreated",
+            "name": "onTermCreated",
+            "kind": "remote",
+            "doc": "Triggered on Term created.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$term.onTermCreated.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$term.onTermCreated.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$term.onTermUpdated",
+            "name": "onTermUpdated",
+            "kind": "remote",
+            "doc": "Triggered on Term updated.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$term.onTermUpdated.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$term.onTermUpdated.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "rules": [
+        {
+          "id": "$atLeastOneTermHandler",
+          "rule": "structure.atLeastOne",
+          "message": "A TermService must declare at least one of onTermCreated, onTermUpdated, otherwise this event is received and silently dropped.",
+          "subjects": [
+            {
+              "kind": "handler",
+              "id": "$term.onTermCreated"
+            },
+            {
+              "kind": "handler",
+              "id": "$term.onTermUpdated"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "$vendor",
+      "doc": "Receives QuickBooks vendor events: updated, deleted, merged, and created.",
+      "type": {
+        "name": "VendorService"
+      },
+      "concrete": false,
+      "multipleListenersAllowed": true,
+      "handlers": {
+        "backedByConcreteType": false,
+        "options": [
+          {
+            "id": "$vendor.onVendorUpdated",
+            "name": "onVendorUpdated",
+            "kind": "remote",
+            "doc": "Triggered on Vendor updated.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$vendor.onVendorUpdated.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$vendor.onVendorUpdated.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$vendor.onVendorDeleted",
+            "name": "onVendorDeleted",
+            "kind": "remote",
+            "doc": "Triggered on Vendor deleted.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$vendor.onVendorDeleted.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$vendor.onVendorDeleted.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$vendor.onVendorMerged",
+            "name": "onVendorMerged",
+            "kind": "remote",
+            "doc": "Triggered on Vendor merged.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$vendor.onVendorMerged.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$vendor.onVendorMerged.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$vendor.onVendorCreated",
+            "name": "onVendorCreated",
+            "kind": "remote",
+            "doc": "Triggered on Vendor created.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$vendor.onVendorCreated.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$vendor.onVendorCreated.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "rules": [
+        {
+          "id": "$atLeastOneVendorHandler",
+          "rule": "structure.atLeastOne",
+          "message": "A VendorService must declare at least one of onVendorUpdated, onVendorDeleted, onVendorMerged, onVendorCreated, otherwise this event is received and silently dropped.",
+          "subjects": [
+            {
+              "kind": "handler",
+              "id": "$vendor.onVendorUpdated"
+            },
+            {
+              "kind": "handler",
+              "id": "$vendor.onVendorDeleted"
+            },
+            {
+              "kind": "handler",
+              "id": "$vendor.onVendorMerged"
+            },
+            {
+              "kind": "handler",
+              "id": "$vendor.onVendorCreated"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "$payment",
+      "doc": "Receives QuickBooks payment events: updated, emailed, voided, created, and deleted.",
+      "type": {
+        "name": "PaymentService"
+      },
+      "concrete": false,
+      "multipleListenersAllowed": true,
+      "handlers": {
+        "backedByConcreteType": false,
+        "options": [
+          {
+            "id": "$payment.onPaymentUpdated",
+            "name": "onPaymentUpdated",
+            "kind": "remote",
+            "doc": "Triggered on Payment updated.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$payment.onPaymentUpdated.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$payment.onPaymentUpdated.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$payment.onPaymentEmailed",
+            "name": "onPaymentEmailed",
+            "kind": "remote",
+            "doc": "Triggered on Payment emailed.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$payment.onPaymentEmailed.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$payment.onPaymentEmailed.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$payment.onPaymentVoided",
+            "name": "onPaymentVoided",
+            "kind": "remote",
+            "doc": "Triggered on Payment voided.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$payment.onPaymentVoided.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$payment.onPaymentVoided.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$payment.onPaymentCreated",
+            "name": "onPaymentCreated",
+            "kind": "remote",
+            "doc": "Triggered on Payment created.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$payment.onPaymentCreated.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$payment.onPaymentCreated.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$payment.onPaymentDeleted",
+            "name": "onPaymentDeleted",
+            "kind": "remote",
+            "doc": "Triggered on Payment deleted.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$payment.onPaymentDeleted.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$payment.onPaymentDeleted.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "rules": [
+        {
+          "id": "$atLeastOnePaymentHandler",
+          "rule": "structure.atLeastOne",
+          "message": "A PaymentService must declare at least one of onPaymentUpdated, onPaymentEmailed, onPaymentVoided, onPaymentCreated, onPaymentDeleted, otherwise this event is received and silently dropped.",
+          "subjects": [
+            {
+              "kind": "handler",
+              "id": "$payment.onPaymentUpdated"
+            },
+            {
+              "kind": "handler",
+              "id": "$payment.onPaymentEmailed"
+            },
+            {
+              "kind": "handler",
+              "id": "$payment.onPaymentVoided"
+            },
+            {
+              "kind": "handler",
+              "id": "$payment.onPaymentCreated"
+            },
+            {
+              "kind": "handler",
+              "id": "$payment.onPaymentDeleted"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "$salesReceipt",
+      "doc": "Receives QuickBooks sales receipt events: created, deleted, voided, updated, and emailed.",
+      "type": {
+        "name": "SalesReceiptService"
+      },
+      "concrete": false,
+      "multipleListenersAllowed": true,
+      "handlers": {
+        "backedByConcreteType": false,
+        "options": [
+          {
+            "id": "$salesReceipt.onSalesReceiptCreated",
+            "name": "onSalesReceiptCreated",
+            "kind": "remote",
+            "doc": "Triggered on Sales receipt created.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$salesReceipt.onSalesReceiptCreated.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$salesReceipt.onSalesReceiptCreated.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$salesReceipt.onSalesReceiptDeleted",
+            "name": "onSalesReceiptDeleted",
+            "kind": "remote",
+            "doc": "Triggered on Sales receipt deleted.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$salesReceipt.onSalesReceiptDeleted.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$salesReceipt.onSalesReceiptDeleted.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$salesReceipt.onSalesReceiptVoided",
+            "name": "onSalesReceiptVoided",
+            "kind": "remote",
+            "doc": "Triggered on Sales receipt voided.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$salesReceipt.onSalesReceiptVoided.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$salesReceipt.onSalesReceiptVoided.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$salesReceipt.onSalesReceiptUpdated",
+            "name": "onSalesReceiptUpdated",
+            "kind": "remote",
+            "doc": "Triggered on Sales receipt updated.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$salesReceipt.onSalesReceiptUpdated.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$salesReceipt.onSalesReceiptUpdated.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$salesReceipt.onSalesReceiptEmailed",
+            "name": "onSalesReceiptEmailed",
+            "kind": "remote",
+            "doc": "Triggered on Sales receipt emailed.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$salesReceipt.onSalesReceiptEmailed.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$salesReceipt.onSalesReceiptEmailed.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "rules": [
+        {
+          "id": "$atLeastOneSalesReceiptHandler",
+          "rule": "structure.atLeastOne",
+          "message": "A SalesReceiptService must declare at least one of onSalesReceiptCreated, onSalesReceiptDeleted, onSalesReceiptVoided, onSalesReceiptUpdated, onSalesReceiptEmailed, otherwise this event is received and silently dropped.",
+          "subjects": [
+            {
+              "kind": "handler",
+              "id": "$salesReceipt.onSalesReceiptCreated"
+            },
+            {
+              "kind": "handler",
+              "id": "$salesReceipt.onSalesReceiptDeleted"
+            },
+            {
+              "kind": "handler",
+              "id": "$salesReceipt.onSalesReceiptVoided"
+            },
+            {
+              "kind": "handler",
+              "id": "$salesReceipt.onSalesReceiptUpdated"
+            },
+            {
+              "kind": "handler",
+              "id": "$salesReceipt.onSalesReceiptEmailed"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "$employee",
+      "doc": "Receives QuickBooks employee events: updated, merged, created, and deleted.",
+      "type": {
+        "name": "EmployeeService"
+      },
+      "concrete": false,
+      "multipleListenersAllowed": true,
+      "handlers": {
+        "backedByConcreteType": false,
+        "options": [
+          {
+            "id": "$employee.onEmployeeUpdated",
+            "name": "onEmployeeUpdated",
+            "kind": "remote",
+            "doc": "Triggered on Employee updated.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$employee.onEmployeeUpdated.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$employee.onEmployeeUpdated.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$employee.onEmployeeMerged",
+            "name": "onEmployeeMerged",
+            "kind": "remote",
+            "doc": "Triggered on Employee merged.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$employee.onEmployeeMerged.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$employee.onEmployeeMerged.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$employee.onEmployeeCreated",
+            "name": "onEmployeeCreated",
+            "kind": "remote",
+            "doc": "Triggered on Employee created.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$employee.onEmployeeCreated.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$employee.onEmployeeCreated.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$employee.onEmployeeDeleted",
+            "name": "onEmployeeDeleted",
+            "kind": "remote",
+            "doc": "Triggered on Employee deleted.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$employee.onEmployeeDeleted.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$employee.onEmployeeDeleted.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "rules": [
+        {
+          "id": "$atLeastOneEmployeeHandler",
+          "rule": "structure.atLeastOne",
+          "message": "An EmployeeService must declare at least one of onEmployeeUpdated, onEmployeeMerged, onEmployeeCreated, onEmployeeDeleted, otherwise this event is received and silently dropped.",
+          "subjects": [
+            {
+              "kind": "handler",
+              "id": "$employee.onEmployeeUpdated"
+            },
+            {
+              "kind": "handler",
+              "id": "$employee.onEmployeeMerged"
+            },
+            {
+              "kind": "handler",
+              "id": "$employee.onEmployeeCreated"
+            },
+            {
+              "kind": "handler",
+              "id": "$employee.onEmployeeDeleted"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "$changeOrder",
+      "doc": "Receives QuickBooks change order events: created, updated, and deleted.",
+      "type": {
+        "name": "ChangeOrderService"
+      },
+      "concrete": false,
+      "multipleListenersAllowed": true,
+      "handlers": {
+        "backedByConcreteType": false,
+        "options": [
+          {
+            "id": "$changeOrder.onChangeOrderCreated",
+            "name": "onChangeOrderCreated",
+            "kind": "remote",
+            "doc": "Triggered on Change order created.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$changeOrder.onChangeOrderCreated.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$changeOrder.onChangeOrderCreated.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$changeOrder.onChangeOrderUpdated",
+            "name": "onChangeOrderUpdated",
+            "kind": "remote",
+            "doc": "Triggered on Change order updated.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$changeOrder.onChangeOrderUpdated.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$changeOrder.onChangeOrderUpdated.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$changeOrder.onChangeOrderDeleted",
+            "name": "onChangeOrderDeleted",
+            "kind": "remote",
+            "doc": "Triggered on Change order deleted.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$changeOrder.onChangeOrderDeleted.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$changeOrder.onChangeOrderDeleted.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "rules": [
+        {
+          "id": "$atLeastOneChangeOrderHandler",
+          "rule": "structure.atLeastOne",
+          "message": "A ChangeOrderService must declare at least one of onChangeOrderCreated, onChangeOrderUpdated, onChangeOrderDeleted, otherwise this event is received and silently dropped.",
+          "subjects": [
+            {
+              "kind": "handler",
+              "id": "$changeOrder.onChangeOrderCreated"
+            },
+            {
+              "kind": "handler",
+              "id": "$changeOrder.onChangeOrderUpdated"
+            },
+            {
+              "kind": "handler",
+              "id": "$changeOrder.onChangeOrderDeleted"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "$transfer",
+      "doc": "Receives QuickBooks transfer events: created, deleted, voided, and updated.",
+      "type": {
+        "name": "TransferService"
+      },
+      "concrete": false,
+      "multipleListenersAllowed": true,
+      "handlers": {
+        "backedByConcreteType": false,
+        "options": [
+          {
+            "id": "$transfer.onTransferCreated",
+            "name": "onTransferCreated",
+            "kind": "remote",
+            "doc": "Triggered on Transfer created.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$transfer.onTransferCreated.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$transfer.onTransferCreated.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$transfer.onTransferDeleted",
+            "name": "onTransferDeleted",
+            "kind": "remote",
+            "doc": "Triggered on Transfer deleted.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$transfer.onTransferDeleted.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$transfer.onTransferDeleted.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$transfer.onTransferVoided",
+            "name": "onTransferVoided",
+            "kind": "remote",
+            "doc": "Triggered on Transfer voided.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$transfer.onTransferVoided.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$transfer.onTransferVoided.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$transfer.onTransferUpdated",
+            "name": "onTransferUpdated",
+            "kind": "remote",
+            "doc": "Triggered on Transfer updated.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$transfer.onTransferUpdated.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$transfer.onTransferUpdated.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "rules": [
+        {
+          "id": "$atLeastOneTransferHandler",
+          "rule": "structure.atLeastOne",
+          "message": "A TransferService must declare at least one of onTransferCreated, onTransferDeleted, onTransferVoided, onTransferUpdated, otherwise this event is received and silently dropped.",
+          "subjects": [
+            {
+              "kind": "handler",
+              "id": "$transfer.onTransferCreated"
+            },
+            {
+              "kind": "handler",
+              "id": "$transfer.onTransferDeleted"
+            },
+            {
+              "kind": "handler",
+              "id": "$transfer.onTransferVoided"
+            },
+            {
+              "kind": "handler",
+              "id": "$transfer.onTransferUpdated"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "$bill",
+      "doc": "Receives QuickBooks bill events: updated, deleted, and created.",
+      "type": {
+        "name": "BillService"
+      },
+      "concrete": false,
+      "multipleListenersAllowed": true,
+      "handlers": {
+        "backedByConcreteType": false,
+        "options": [
+          {
+            "id": "$bill.onBillUpdated",
+            "name": "onBillUpdated",
+            "kind": "remote",
+            "doc": "Triggered on Bill updated.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$bill.onBillUpdated.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$bill.onBillUpdated.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$bill.onBillDeleted",
+            "name": "onBillDeleted",
+            "kind": "remote",
+            "doc": "Triggered on Bill deleted.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$bill.onBillDeleted.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$bill.onBillDeleted.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$bill.onBillCreated",
+            "name": "onBillCreated",
+            "kind": "remote",
+            "doc": "Triggered on Bill created.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$bill.onBillCreated.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$bill.onBillCreated.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "rules": [
+        {
+          "id": "$atLeastOneBillHandler",
+          "rule": "structure.atLeastOne",
+          "message": "A BillService must declare at least one of onBillUpdated, onBillDeleted, onBillCreated, otherwise this event is received and silently dropped.",
+          "subjects": [
+            {
+              "kind": "handler",
+              "id": "$bill.onBillUpdated"
+            },
+            {
+              "kind": "handler",
+              "id": "$bill.onBillDeleted"
+            },
+            {
+              "kind": "handler",
+              "id": "$bill.onBillCreated"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "$purchaseOrder",
+      "doc": "Receives QuickBooks purchase order events: deleted, created, updated, and emailed.",
+      "type": {
+        "name": "PurchaseOrderService"
+      },
+      "concrete": false,
+      "multipleListenersAllowed": true,
+      "handlers": {
+        "backedByConcreteType": false,
+        "options": [
+          {
+            "id": "$purchaseOrder.onPurchaseOrderDeleted",
+            "name": "onPurchaseOrderDeleted",
+            "kind": "remote",
+            "doc": "Triggered on Purchase order deleted.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$purchaseOrder.onPurchaseOrderDeleted.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$purchaseOrder.onPurchaseOrderDeleted.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$purchaseOrder.onPurchaseOrderCreated",
+            "name": "onPurchaseOrderCreated",
+            "kind": "remote",
+            "doc": "Triggered on Purchase order created.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$purchaseOrder.onPurchaseOrderCreated.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$purchaseOrder.onPurchaseOrderCreated.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$purchaseOrder.onPurchaseOrderUpdated",
+            "name": "onPurchaseOrderUpdated",
+            "kind": "remote",
+            "doc": "Triggered on Purchase order updated.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$purchaseOrder.onPurchaseOrderUpdated.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$purchaseOrder.onPurchaseOrderUpdated.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$purchaseOrder.onPurchaseOrderEmailed",
+            "name": "onPurchaseOrderEmailed",
+            "kind": "remote",
+            "doc": "Triggered on Purchase order emailed.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$purchaseOrder.onPurchaseOrderEmailed.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$purchaseOrder.onPurchaseOrderEmailed.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "rules": [
+        {
+          "id": "$atLeastOnePurchaseOrderHandler",
+          "rule": "structure.atLeastOne",
+          "message": "A PurchaseOrderService must declare at least one of onPurchaseOrderDeleted, onPurchaseOrderCreated, onPurchaseOrderUpdated, onPurchaseOrderEmailed, otherwise this event is received and silently dropped.",
+          "subjects": [
+            {
+              "kind": "handler",
+              "id": "$purchaseOrder.onPurchaseOrderDeleted"
+            },
+            {
+              "kind": "handler",
+              "id": "$purchaseOrder.onPurchaseOrderCreated"
+            },
+            {
+              "kind": "handler",
+              "id": "$purchaseOrder.onPurchaseOrderUpdated"
+            },
+            {
+              "kind": "handler",
+              "id": "$purchaseOrder.onPurchaseOrderEmailed"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "$paymentMethod",
+      "doc": "Receives QuickBooks payment method events: updated, created, and merged.",
+      "type": {
+        "name": "PaymentMethodService"
+      },
+      "concrete": false,
+      "multipleListenersAllowed": true,
+      "handlers": {
+        "backedByConcreteType": false,
+        "options": [
+          {
+            "id": "$paymentMethod.onPaymentMethodUpdated",
+            "name": "onPaymentMethodUpdated",
+            "kind": "remote",
+            "doc": "Triggered on Payment method updated.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$paymentMethod.onPaymentMethodUpdated.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$paymentMethod.onPaymentMethodUpdated.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$paymentMethod.onPaymentMethodCreated",
+            "name": "onPaymentMethodCreated",
+            "kind": "remote",
+            "doc": "Triggered on Payment method created.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$paymentMethod.onPaymentMethodCreated.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$paymentMethod.onPaymentMethodCreated.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$paymentMethod.onPaymentMethodMerged",
+            "name": "onPaymentMethodMerged",
+            "kind": "remote",
+            "doc": "Triggered on Payment method merged.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$paymentMethod.onPaymentMethodMerged.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$paymentMethod.onPaymentMethodMerged.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "rules": [
+        {
+          "id": "$atLeastOnePaymentMethodHandler",
+          "rule": "structure.atLeastOne",
+          "message": "A PaymentMethodService must declare at least one of onPaymentMethodUpdated, onPaymentMethodCreated, onPaymentMethodMerged, otherwise this event is received and silently dropped.",
+          "subjects": [
+            {
+              "kind": "handler",
+              "id": "$paymentMethod.onPaymentMethodUpdated"
+            },
+            {
+              "kind": "handler",
+              "id": "$paymentMethod.onPaymentMethodCreated"
+            },
+            {
+              "kind": "handler",
+              "id": "$paymentMethod.onPaymentMethodMerged"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "$class",
+      "doc": "Receives QuickBooks class events: updated, deleted, created, and merged.",
+      "type": {
+        "name": "ClassService"
+      },
+      "concrete": false,
+      "multipleListenersAllowed": true,
+      "handlers": {
+        "backedByConcreteType": false,
+        "options": [
+          {
+            "id": "$class.onClassUpdated",
+            "name": "onClassUpdated",
+            "kind": "remote",
+            "doc": "Triggered on Class updated.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$class.onClassUpdated.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$class.onClassUpdated.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$class.onClassDeleted",
+            "name": "onClassDeleted",
+            "kind": "remote",
+            "doc": "Triggered on Class deleted.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$class.onClassDeleted.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$class.onClassDeleted.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$class.onClassCreated",
+            "name": "onClassCreated",
+            "kind": "remote",
+            "doc": "Triggered on Class created.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$class.onClassCreated.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$class.onClassCreated.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "$class.onClassMerged",
+            "name": "onClassMerged",
+            "kind": "remote",
+            "doc": "Triggered on Class merged.",
+            "presence": "optional",
+            "params": [
+              {
+                "id": "$class.onClassMerged.payload",
+                "name": "payload",
+                "doc": "the QuickBookEvent webhook payload",
+                "type": {
+                  "name": "QuickBookEvent"
+                },
+                "presence": "required"
+              }
+            ],
+            "returns": {
+              "id": "$class.onClassMerged.returns",
+              "type": [
+                {
+                  "name": "error",
+                  "builtin": true
+                },
+                {
+                  "name": "()",
+                  "builtin": true
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "rules": [
+        {
+          "id": "$atLeastOneClassHandler",
+          "rule": "structure.atLeastOne",
+          "message": "A ClassService must declare at least one of onClassUpdated, onClassDeleted, onClassCreated, onClassMerged, otherwise this event is received and silently dropped.",
+          "subjects": [
+            {
+              "kind": "handler",
+              "id": "$class.onClassUpdated"
+            },
+            {
+              "kind": "handler",
+              "id": "$class.onClassDeleted"
+            },
+            {
+              "kind": "handler",
+              "id": "$class.onClassCreated"
+            },
+            {
+              "kind": "handler",
+              "id": "$class.onClassMerged"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
