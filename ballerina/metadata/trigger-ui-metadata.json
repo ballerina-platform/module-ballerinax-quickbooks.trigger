@@ -1,0 +1,852 @@
+{
+  "version": "v1.0",
+  "metadata": {
+    "kind": "event"
+  },
+  "trigger": {
+    "displayName": "QuickBooks Event Integration",
+    "description": "Create a service to handle webhook events from QuickBooks",
+    "type": "quickbooks"
+  },
+  "initForm": {
+    "fields": [
+      {
+        "target": {
+          "kind": "recordField",
+          "owner": "trigger.initProperties",
+          "path": "serviceType"
+        },
+        "metadata": {
+          "label": "Event Channel",
+          "description": "The type of QuickBooks entity event to listen for"
+        },
+        "source": {
+          "construct": {
+            "kind": "SERVICE_TYPE_DESCRIPTOR"
+          },
+          "module": {
+            "name": "quickbooks"
+          }
+        },
+        "state": {
+          "enabled": true,
+          "editable": true,
+          "optional": false,
+          "advanced": false
+        },
+        "key": "serviceType",
+        "default": "quickbooks:CustomerService"
+      }
+    ]
+  },
+  "listeners": [
+    {
+      "target": "$listener",
+      "form": {
+        "section": {
+          "label": "Listener",
+          "description": "Attach the service to a new or existing QuickBooks webhook listener."
+        },
+        "createNew": {
+          "label": "Create New Listener",
+          "description": "Define a new QuickBooks webhook listener in the project."
+        },
+        "listenerConfig": {
+          "label": "Listener Configurations",
+          "description": "Configure the QuickBooks webhook listener."
+        },
+        "useExisting": {
+          "label": "Use Existing Listener",
+          "description": "Attach to a QuickBooks listener already declared in the project."
+        },
+        "existingListener": {
+          "label": "Listener",
+          "description": "Select an existing listener to attach the service to."
+        },
+        "existingListenerItems": [
+          "quickbooksListener"
+        ],
+        "existingListenerValue": "quickbooksListener"
+      },
+      "formFields": {
+        "listenerVarName": {
+          "key": "listenerVarName",
+          "default": "quickbooksListener",
+          "metadata": {
+            "label": "Listener Name",
+            "description": "Provide a name for the listener being created"
+          },
+          "source": {
+            "construct": {
+              "kind": "LISTENER_VAR_NAME"
+            }
+          },
+          "state": {
+            "enabled": true,
+            "editable": true,
+            "optional": false,
+            "advanced": false
+          }
+        },
+        "listenOn": {
+          "key": "listenOn",
+          "placeholder": "8090",
+          "default": "8090",
+          "metadata": {
+            "label": "Webhook Listener Port",
+            "description": "The port on which the webhook listener accepts incoming HTTP requests"
+          },
+          "source": {
+            "argument": {
+              "kind": "LISTENER_PARAM_REQUIRED",
+              "position": 2,
+              "originalName": "listenOn"
+            }
+          },
+          "state": {
+            "enabled": true,
+            "editable": true,
+            "optional": true,
+            "advanced": false
+          }
+        },
+        "listenerConfigFallback": {
+          "key": "listenerConfigFallback",
+          "default": "{}",
+          "metadata": {
+            "label": "Listener Config",
+            "description": "Fallback empty value for the listener config record when no fields under it are set."
+          },
+          "source": {
+            "argument": {
+              "kind": "LISTENER_PARAM_REQUIRED",
+              "position": 1,
+              "originalName": "listenerConfig"
+            }
+          },
+          "state": {
+            "enabled": true,
+            "editable": false,
+            "optional": true,
+            "advanced": true,
+            "hidden": true
+          }
+        },
+        "webhookSecret": {
+          "key": "webhookSecret",
+          "placeholder": "",
+          "default": "",
+          "metadata": {
+            "label": "Webhook Secret",
+            "description": "Secret used to validate incoming QuickBooks webhook requests"
+          },
+          "source": {
+            "argument": {
+              "kind": "LISTENER_PARAM_CONFIG_FIELD",
+              "originalName": "webhookSecret",
+              "position": 1
+            },
+            "path": "webhookSecret"
+          },
+          "state": {
+            "enabled": true,
+            "editable": true,
+            "optional": true,
+            "advanced": false
+          }
+        }
+      }
+    }
+  ],
+  "serviceTypes": [
+    {
+      "target": "$companyCurrency",
+      "metadata": {
+        "label": "Company Currency",
+        "description": "Triggered when an event related to QuickBooks company currency is received. Available actions: onCompanyCurrencyUpdated, onCompanyCurrencyDeleted, and onCompanyCurrencyCreated."
+      },
+      "source": {
+        "construct": {
+          "kind": "SERVICE_TYPE_DESCRIPTOR"
+        },
+        "argument": {
+          "originalName": "CompanyCurrencyService"
+        },
+        "module": {
+          "name": "quickbooks"
+        }
+      },
+      "state": {
+        "enabled": false,
+        "editable": true
+      }
+    },
+    {
+      "target": "$account",
+      "metadata": {
+        "label": "Account",
+        "description": "Triggered when an event related to QuickBooks account is received. Available actions: onAccountMerged, onAccountUpdated, onAccountCreated, and onAccountDeleted."
+      },
+      "source": {
+        "construct": {
+          "kind": "SERVICE_TYPE_DESCRIPTOR"
+        },
+        "argument": {
+          "originalName": "AccountService"
+        },
+        "module": {
+          "name": "quickbooks"
+        }
+      },
+      "state": {
+        "enabled": false,
+        "editable": true
+      }
+    },
+    {
+      "target": "$estimate",
+      "metadata": {
+        "label": "Estimate",
+        "description": "Triggered when an event related to QuickBooks estimate is received. Available actions: onEstimateCreated, onEstimateEmailed, onEstimateDeleted, and onEstimateUpdated."
+      },
+      "source": {
+        "construct": {
+          "kind": "SERVICE_TYPE_DESCRIPTOR"
+        },
+        "argument": {
+          "originalName": "EstimateService"
+        },
+        "module": {
+          "name": "quickbooks"
+        }
+      },
+      "state": {
+        "enabled": false,
+        "editable": true
+      }
+    },
+    {
+      "target": "$invoice",
+      "metadata": {
+        "label": "Invoice",
+        "description": "Triggered when an event related to QuickBooks invoice is received. Available actions: onInvoiceCreated, onInvoiceUpdated, onInvoiceDeleted, onInvoiceEmailed, and onInvoiceVoided."
+      },
+      "source": {
+        "construct": {
+          "kind": "SERVICE_TYPE_DESCRIPTOR"
+        },
+        "argument": {
+          "originalName": "InvoiceService"
+        },
+        "module": {
+          "name": "quickbooks"
+        }
+      },
+      "state": {
+        "enabled": false,
+        "editable": true
+      }
+    },
+    {
+      "target": "$customer",
+      "metadata": {
+        "label": "Customer",
+        "description": "Triggered when an event related to QuickBooks customer is received. Available actions: onCustomerDeleted, onCustomerCreated, onCustomerUpdated, and onCustomerMerged."
+      },
+      "source": {
+        "construct": {
+          "kind": "SERVICE_TYPE_DESCRIPTOR"
+        },
+        "argument": {
+          "originalName": "CustomerService"
+        },
+        "module": {
+          "name": "quickbooks"
+        }
+      },
+      "state": {
+        "enabled": true,
+        "editable": true
+      }
+    },
+    {
+      "target": "$taxAgency",
+      "metadata": {
+        "label": "Tax Agency",
+        "description": "Triggered when an event related to QuickBooks tax agency is received. Available actions: onTaxAgencyUpdated and onTaxAgencyCreated."
+      },
+      "source": {
+        "construct": {
+          "kind": "SERVICE_TYPE_DESCRIPTOR"
+        },
+        "argument": {
+          "originalName": "TaxAgencyService"
+        },
+        "module": {
+          "name": "quickbooks"
+        }
+      },
+      "state": {
+        "enabled": false,
+        "editable": true
+      }
+    },
+    {
+      "target": "$journalEntry",
+      "metadata": {
+        "label": "Journal Entry",
+        "description": "Triggered when an event related to QuickBooks journal entry is received. Available actions: onJournalEntryUpdated, onJournalEntryDeleted, and onJournalEntryCreated."
+      },
+      "source": {
+        "construct": {
+          "kind": "SERVICE_TYPE_DESCRIPTOR"
+        },
+        "argument": {
+          "originalName": "JournalEntryService"
+        },
+        "module": {
+          "name": "quickbooks"
+        }
+      },
+      "state": {
+        "enabled": false,
+        "editable": true
+      }
+    },
+    {
+      "target": "$item",
+      "metadata": {
+        "label": "Item",
+        "description": "Triggered when an event related to QuickBooks item is received. Available actions: onItemCreated, onItemDeleted, onItemUpdated, and onItemMerged."
+      },
+      "source": {
+        "construct": {
+          "kind": "SERVICE_TYPE_DESCRIPTOR"
+        },
+        "argument": {
+          "originalName": "ItemService"
+        },
+        "module": {
+          "name": "quickbooks"
+        }
+      },
+      "state": {
+        "enabled": false,
+        "editable": true
+      }
+    },
+    {
+      "target": "$department",
+      "metadata": {
+        "label": "Department",
+        "description": "Triggered when an event related to QuickBooks department is received. Available actions: onDepartmentCreated, onDepartmentMerged, and onDepartmentUpdated."
+      },
+      "source": {
+        "construct": {
+          "kind": "SERVICE_TYPE_DESCRIPTOR"
+        },
+        "argument": {
+          "originalName": "DepartmentService"
+        },
+        "module": {
+          "name": "quickbooks"
+        }
+      },
+      "state": {
+        "enabled": false,
+        "editable": true
+      }
+    },
+    {
+      "target": "$refundReceipt",
+      "metadata": {
+        "label": "Refund Receipt",
+        "description": "Triggered when an event related to QuickBooks refund receipt is received. Available actions: onRefundReceiptCreated, onRefundReceiptDeleted, onRefundReceiptEmailed, onRefundReceiptVoided, and onRefundReceiptUpdated."
+      },
+      "source": {
+        "construct": {
+          "kind": "SERVICE_TYPE_DESCRIPTOR"
+        },
+        "argument": {
+          "originalName": "RefundReceiptService"
+        },
+        "module": {
+          "name": "quickbooks"
+        }
+      },
+      "state": {
+        "enabled": false,
+        "editable": true
+      }
+    },
+    {
+      "target": "$currency",
+      "metadata": {
+        "label": "Currency",
+        "description": "Triggered when an event related to QuickBooks currency is received. Available actions: onCurrencyCreated, onCurrencyDeleted, and onCurrencyUpdated."
+      },
+      "source": {
+        "construct": {
+          "kind": "SERVICE_TYPE_DESCRIPTOR"
+        },
+        "argument": {
+          "originalName": "CurrencyService"
+        },
+        "module": {
+          "name": "quickbooks"
+        }
+      },
+      "state": {
+        "enabled": false,
+        "editable": true
+      }
+    },
+    {
+      "target": "$billPayment",
+      "metadata": {
+        "label": "Bill Payment",
+        "description": "Triggered when an event related to QuickBooks bill payment is received. Available actions: onBillPaymentCreated, onBillPaymentDeleted, onBillPaymentVoided, and onBillPaymentUpdated."
+      },
+      "source": {
+        "construct": {
+          "kind": "SERVICE_TYPE_DESCRIPTOR"
+        },
+        "argument": {
+          "originalName": "BillPaymentService"
+        },
+        "module": {
+          "name": "quickbooks"
+        }
+      },
+      "state": {
+        "enabled": false,
+        "editable": true
+      }
+    },
+    {
+      "target": "$creditMemo",
+      "metadata": {
+        "label": "Credit Memo",
+        "description": "Triggered when an event related to QuickBooks credit memo is received. Available actions: onCreditMemoUpdated, onCreditMemoVoided, onCreditMemoEmailed, onCreditMemoCreated, and onCreditMemoDeleted."
+      },
+      "source": {
+        "construct": {
+          "kind": "SERVICE_TYPE_DESCRIPTOR"
+        },
+        "argument": {
+          "originalName": "CreditMemoService"
+        },
+        "module": {
+          "name": "quickbooks"
+        }
+      },
+      "state": {
+        "enabled": false,
+        "editable": true
+      }
+    },
+    {
+      "target": "$budget",
+      "metadata": {
+        "label": "Budget",
+        "description": "Triggered when an event related to QuickBooks budget is received. Available actions: onBudgetUpdated and onBudgetCreated."
+      },
+      "source": {
+        "construct": {
+          "kind": "SERVICE_TYPE_DESCRIPTOR"
+        },
+        "argument": {
+          "originalName": "BudgetService"
+        },
+        "module": {
+          "name": "quickbooks"
+        }
+      },
+      "state": {
+        "enabled": false,
+        "editable": true
+      }
+    },
+    {
+      "target": "$preferences",
+      "metadata": {
+        "label": "Preferences",
+        "description": "Triggered when an event related to QuickBooks preferences is received. Available actions: onPreferencesUpdated."
+      },
+      "source": {
+        "construct": {
+          "kind": "SERVICE_TYPE_DESCRIPTOR"
+        },
+        "argument": {
+          "originalName": "PreferencesService"
+        },
+        "module": {
+          "name": "quickbooks"
+        }
+      },
+      "state": {
+        "enabled": false,
+        "editable": true
+      }
+    },
+    {
+      "target": "$timeActivity",
+      "metadata": {
+        "label": "Time Activity",
+        "description": "Triggered when an event related to QuickBooks time activity is received. Available actions: onTimeActivityCreated, onTimeActivityUpdated, and onTimeActivityDeleted."
+      },
+      "source": {
+        "construct": {
+          "kind": "SERVICE_TYPE_DESCRIPTOR"
+        },
+        "argument": {
+          "originalName": "TimeActivityService"
+        },
+        "module": {
+          "name": "quickbooks"
+        }
+      },
+      "state": {
+        "enabled": false,
+        "editable": true
+      }
+    },
+    {
+      "target": "$deposit",
+      "metadata": {
+        "label": "Deposit",
+        "description": "Triggered when an event related to QuickBooks deposit is received. Available actions: onDepositCreated, onDepositUpdated, and onDepositDeleted."
+      },
+      "source": {
+        "construct": {
+          "kind": "SERVICE_TYPE_DESCRIPTOR"
+        },
+        "argument": {
+          "originalName": "DepositService"
+        },
+        "module": {
+          "name": "quickbooks"
+        }
+      },
+      "state": {
+        "enabled": false,
+        "editable": true
+      }
+    },
+    {
+      "target": "$journalCode",
+      "metadata": {
+        "label": "Journal Code",
+        "description": "Triggered when an event related to QuickBooks journal code is received. Available actions: onJournalCodeUpdated and onJournalCodeCreated."
+      },
+      "source": {
+        "construct": {
+          "kind": "SERVICE_TYPE_DESCRIPTOR"
+        },
+        "argument": {
+          "originalName": "JournalCodeService"
+        },
+        "module": {
+          "name": "quickbooks"
+        }
+      },
+      "state": {
+        "enabled": false,
+        "editable": true
+      }
+    },
+    {
+      "target": "$purchase",
+      "metadata": {
+        "label": "Purchase",
+        "description": "Triggered when an event related to QuickBooks purchase is received. Available actions: onPurchaseVoided, onPurchaseUpdated, onPurchaseDeleted, and onPurchaseCreated."
+      },
+      "source": {
+        "construct": {
+          "kind": "SERVICE_TYPE_DESCRIPTOR"
+        },
+        "argument": {
+          "originalName": "PurchaseService"
+        },
+        "module": {
+          "name": "quickbooks"
+        }
+      },
+      "state": {
+        "enabled": false,
+        "editable": true
+      }
+    },
+    {
+      "target": "$vendorCredit",
+      "metadata": {
+        "label": "Vendor Credit",
+        "description": "Triggered when an event related to QuickBooks vendor credit is received. Available actions: onVendorCreditCreated, onVendorCreditDeleted, and onVendorCreditUpdated."
+      },
+      "source": {
+        "construct": {
+          "kind": "SERVICE_TYPE_DESCRIPTOR"
+        },
+        "argument": {
+          "originalName": "VendorCreditService"
+        },
+        "module": {
+          "name": "quickbooks"
+        }
+      },
+      "state": {
+        "enabled": false,
+        "editable": true
+      }
+    },
+    {
+      "target": "$term",
+      "metadata": {
+        "label": "Term",
+        "description": "Triggered when an event related to QuickBooks term is received. Available actions: onTermCreated and onTermUpdated."
+      },
+      "source": {
+        "construct": {
+          "kind": "SERVICE_TYPE_DESCRIPTOR"
+        },
+        "argument": {
+          "originalName": "TermService"
+        },
+        "module": {
+          "name": "quickbooks"
+        }
+      },
+      "state": {
+        "enabled": false,
+        "editable": true
+      }
+    },
+    {
+      "target": "$vendor",
+      "metadata": {
+        "label": "Vendor",
+        "description": "Triggered when an event related to QuickBooks vendor is received. Available actions: onVendorUpdated, onVendorDeleted, onVendorMerged, and onVendorCreated."
+      },
+      "source": {
+        "construct": {
+          "kind": "SERVICE_TYPE_DESCRIPTOR"
+        },
+        "argument": {
+          "originalName": "VendorService"
+        },
+        "module": {
+          "name": "quickbooks"
+        }
+      },
+      "state": {
+        "enabled": false,
+        "editable": true
+      }
+    },
+    {
+      "target": "$payment",
+      "metadata": {
+        "label": "Payment",
+        "description": "Triggered when an event related to QuickBooks payment is received. Available actions: onPaymentUpdated, onPaymentEmailed, onPaymentVoided, onPaymentCreated, and onPaymentDeleted."
+      },
+      "source": {
+        "construct": {
+          "kind": "SERVICE_TYPE_DESCRIPTOR"
+        },
+        "argument": {
+          "originalName": "PaymentService"
+        },
+        "module": {
+          "name": "quickbooks"
+        }
+      },
+      "state": {
+        "enabled": false,
+        "editable": true
+      }
+    },
+    {
+      "target": "$salesReceipt",
+      "metadata": {
+        "label": "Sales Receipt",
+        "description": "Triggered when an event related to QuickBooks sales receipt is received. Available actions: onSalesReceiptCreated, onSalesReceiptDeleted, onSalesReceiptVoided, onSalesReceiptUpdated, and onSalesReceiptEmailed."
+      },
+      "source": {
+        "construct": {
+          "kind": "SERVICE_TYPE_DESCRIPTOR"
+        },
+        "argument": {
+          "originalName": "SalesReceiptService"
+        },
+        "module": {
+          "name": "quickbooks"
+        }
+      },
+      "state": {
+        "enabled": false,
+        "editable": true
+      }
+    },
+    {
+      "target": "$employee",
+      "metadata": {
+        "label": "Employee",
+        "description": "Triggered when an event related to QuickBooks employee is received. Available actions: onEmployeeUpdated, onEmployeeMerged, onEmployeeCreated, and onEmployeeDeleted."
+      },
+      "source": {
+        "construct": {
+          "kind": "SERVICE_TYPE_DESCRIPTOR"
+        },
+        "argument": {
+          "originalName": "EmployeeService"
+        },
+        "module": {
+          "name": "quickbooks"
+        }
+      },
+      "state": {
+        "enabled": false,
+        "editable": true
+      }
+    },
+    {
+      "target": "$changeOrder",
+      "metadata": {
+        "label": "Change Order",
+        "description": "Triggered when an event related to QuickBooks change order is received. Available actions: onChangeOrderCreated, onChangeOrderUpdated, and onChangeOrderDeleted."
+      },
+      "source": {
+        "construct": {
+          "kind": "SERVICE_TYPE_DESCRIPTOR"
+        },
+        "argument": {
+          "originalName": "ChangeOrderService"
+        },
+        "module": {
+          "name": "quickbooks"
+        }
+      },
+      "state": {
+        "enabled": false,
+        "editable": true
+      }
+    },
+    {
+      "target": "$transfer",
+      "metadata": {
+        "label": "Transfer",
+        "description": "Triggered when an event related to QuickBooks transfer is received. Available actions: onTransferCreated, onTransferDeleted, onTransferVoided, and onTransferUpdated."
+      },
+      "source": {
+        "construct": {
+          "kind": "SERVICE_TYPE_DESCRIPTOR"
+        },
+        "argument": {
+          "originalName": "TransferService"
+        },
+        "module": {
+          "name": "quickbooks"
+        }
+      },
+      "state": {
+        "enabled": false,
+        "editable": true
+      }
+    },
+    {
+      "target": "$bill",
+      "metadata": {
+        "label": "Bill",
+        "description": "Triggered when an event related to QuickBooks bill is received. Available actions: onBillUpdated, onBillDeleted, and onBillCreated."
+      },
+      "source": {
+        "construct": {
+          "kind": "SERVICE_TYPE_DESCRIPTOR"
+        },
+        "argument": {
+          "originalName": "BillService"
+        },
+        "module": {
+          "name": "quickbooks"
+        }
+      },
+      "state": {
+        "enabled": false,
+        "editable": true
+      }
+    },
+    {
+      "target": "$purchaseOrder",
+      "metadata": {
+        "label": "Purchase Order",
+        "description": "Triggered when an event related to QuickBooks purchase order is received. Available actions: onPurchaseOrderDeleted, onPurchaseOrderCreated, onPurchaseOrderUpdated, and onPurchaseOrderEmailed."
+      },
+      "source": {
+        "construct": {
+          "kind": "SERVICE_TYPE_DESCRIPTOR"
+        },
+        "argument": {
+          "originalName": "PurchaseOrderService"
+        },
+        "module": {
+          "name": "quickbooks"
+        }
+      },
+      "state": {
+        "enabled": false,
+        "editable": true
+      }
+    },
+    {
+      "target": "$paymentMethod",
+      "metadata": {
+        "label": "Payment Method",
+        "description": "Triggered when an event related to QuickBooks payment method is received. Available actions: onPaymentMethodUpdated, onPaymentMethodCreated, and onPaymentMethodMerged."
+      },
+      "source": {
+        "construct": {
+          "kind": "SERVICE_TYPE_DESCRIPTOR"
+        },
+        "argument": {
+          "originalName": "PaymentMethodService"
+        },
+        "module": {
+          "name": "quickbooks"
+        }
+      },
+      "state": {
+        "enabled": false,
+        "editable": true
+      }
+    },
+    {
+      "target": "$class",
+      "metadata": {
+        "label": "Class",
+        "description": "Triggered when an event related to QuickBooks class is received. Available actions: onClassUpdated, onClassDeleted, onClassCreated, and onClassMerged."
+      },
+      "source": {
+        "construct": {
+          "kind": "SERVICE_TYPE_DESCRIPTOR"
+        },
+        "argument": {
+          "originalName": "ClassService"
+        },
+        "module": {
+          "name": "quickbooks"
+        }
+      },
+      "state": {
+        "enabled": false,
+        "editable": true
+      }
+    }
+  ],
+  "artifactInfo": {
+    "displayLabel": "QuickBooks Event Integration",
+    "icon": {
+      "lightPath": "icons/light.svg",
+      "darkPath": "icons/dark.svg"
+    }
+  }
+}

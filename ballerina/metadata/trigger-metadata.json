@@ -1,0 +1,421 @@
+{
+  "version": "v1.0",
+  "listeners": [
+    {
+      "id": "$listener",
+      "doc": "Webhook listener that dispatches each inbound QuickBooks CloudEvents notification to the concrete service type matching its entity.",
+      "type": {
+        "name": "Listener"
+      },
+      "services": [
+        "$companyCurrency",
+        "$account",
+        "$estimate",
+        "$invoice",
+        "$customer",
+        "$taxAgency",
+        "$journalEntry",
+        "$item",
+        "$department",
+        "$refundReceipt",
+        "$currency",
+        "$billPayment",
+        "$creditMemo",
+        "$budget",
+        "$preferences",
+        "$timeActivity",
+        "$deposit",
+        "$journalCode",
+        "$purchase",
+        "$vendorCredit",
+        "$term",
+        "$vendor",
+        "$payment",
+        "$salesReceipt",
+        "$employee",
+        "$changeOrder",
+        "$transfer",
+        "$bill",
+        "$purchaseOrder",
+        "$paymentMethod",
+        "$class"
+      ],
+      "multipleServicesAllowed": true,
+      "multipleServicesOfSameTypeAllowed": false
+    }
+  ],
+  "serviceTypes": [
+    {
+      "id": "$companyCurrency",
+      "doc": "Receives QuickBooks company currency events: updated, deleted, and created.",
+      "type": {
+        "name": "CompanyCurrencyService"
+      },
+      "concrete": true,
+      "multipleListenersAllowed": true,
+      "handlers": {
+        "backedByConcreteType": true
+      }
+    },
+    {
+      "id": "$account",
+      "doc": "Receives QuickBooks account events: merged, updated, created, and deleted.",
+      "type": {
+        "name": "AccountService"
+      },
+      "concrete": true,
+      "multipleListenersAllowed": true,
+      "handlers": {
+        "backedByConcreteType": true
+      }
+    },
+    {
+      "id": "$estimate",
+      "doc": "Receives QuickBooks estimate events: created, emailed, deleted, and updated.",
+      "type": {
+        "name": "EstimateService"
+      },
+      "concrete": true,
+      "multipleListenersAllowed": true,
+      "handlers": {
+        "backedByConcreteType": true
+      }
+    },
+    {
+      "id": "$invoice",
+      "doc": "Receives QuickBooks invoice events: created, updated, deleted, emailed, and voided.",
+      "type": {
+        "name": "InvoiceService"
+      },
+      "concrete": true,
+      "multipleListenersAllowed": true,
+      "handlers": {
+        "backedByConcreteType": true
+      }
+    },
+    {
+      "id": "$customer",
+      "doc": "Receives QuickBooks customer events: deleted, created, updated, and merged.",
+      "type": {
+        "name": "CustomerService"
+      },
+      "concrete": true,
+      "multipleListenersAllowed": true,
+      "handlers": {
+        "backedByConcreteType": true
+      }
+    },
+    {
+      "id": "$taxAgency",
+      "doc": "Receives QuickBooks tax agency events: updated and created.",
+      "type": {
+        "name": "TaxAgencyService"
+      },
+      "concrete": true,
+      "multipleListenersAllowed": true,
+      "handlers": {
+        "backedByConcreteType": true
+      }
+    },
+    {
+      "id": "$journalEntry",
+      "doc": "Receives QuickBooks journal entry events: updated, deleted, and created.",
+      "type": {
+        "name": "JournalEntryService"
+      },
+      "concrete": true,
+      "multipleListenersAllowed": true,
+      "handlers": {
+        "backedByConcreteType": true
+      }
+    },
+    {
+      "id": "$item",
+      "doc": "Receives QuickBooks item events: created, deleted, updated, and merged.",
+      "type": {
+        "name": "ItemService"
+      },
+      "concrete": true,
+      "multipleListenersAllowed": true,
+      "handlers": {
+        "backedByConcreteType": true
+      }
+    },
+    {
+      "id": "$department",
+      "doc": "Receives QuickBooks department events: created, merged, and updated.",
+      "type": {
+        "name": "DepartmentService"
+      },
+      "concrete": true,
+      "multipleListenersAllowed": true,
+      "handlers": {
+        "backedByConcreteType": true
+      }
+    },
+    {
+      "id": "$refundReceipt",
+      "doc": "Receives QuickBooks refund receipt events: created, deleted, emailed, voided, and updated.",
+      "type": {
+        "name": "RefundReceiptService"
+      },
+      "concrete": true,
+      "multipleListenersAllowed": true,
+      "handlers": {
+        "backedByConcreteType": true
+      }
+    },
+    {
+      "id": "$currency",
+      "doc": "Receives QuickBooks currency events: created, deleted, and updated.",
+      "type": {
+        "name": "CurrencyService"
+      },
+      "concrete": true,
+      "multipleListenersAllowed": true,
+      "handlers": {
+        "backedByConcreteType": true
+      }
+    },
+    {
+      "id": "$billPayment",
+      "doc": "Receives QuickBooks bill payment events: created, deleted, voided, and updated.",
+      "type": {
+        "name": "BillPaymentService"
+      },
+      "concrete": true,
+      "multipleListenersAllowed": true,
+      "handlers": {
+        "backedByConcreteType": true
+      }
+    },
+    {
+      "id": "$creditMemo",
+      "doc": "Receives QuickBooks credit memo events: updated, voided, emailed, created, and deleted.",
+      "type": {
+        "name": "CreditMemoService"
+      },
+      "concrete": true,
+      "multipleListenersAllowed": true,
+      "handlers": {
+        "backedByConcreteType": true
+      }
+    },
+    {
+      "id": "$budget",
+      "doc": "Receives QuickBooks budget events: updated and created.",
+      "type": {
+        "name": "BudgetService"
+      },
+      "concrete": true,
+      "multipleListenersAllowed": true,
+      "handlers": {
+        "backedByConcreteType": true
+      }
+    },
+    {
+      "id": "$preferences",
+      "doc": "Receives QuickBooks preferences events: updated.",
+      "type": {
+        "name": "PreferencesService"
+      },
+      "concrete": true,
+      "multipleListenersAllowed": true,
+      "handlers": {
+        "backedByConcreteType": true
+      }
+    },
+    {
+      "id": "$timeActivity",
+      "doc": "Receives QuickBooks time activity events: created, updated, and deleted.",
+      "type": {
+        "name": "TimeActivityService"
+      },
+      "concrete": true,
+      "multipleListenersAllowed": true,
+      "handlers": {
+        "backedByConcreteType": true
+      }
+    },
+    {
+      "id": "$deposit",
+      "doc": "Receives QuickBooks deposit events: created, updated, and deleted.",
+      "type": {
+        "name": "DepositService"
+      },
+      "concrete": true,
+      "multipleListenersAllowed": true,
+      "handlers": {
+        "backedByConcreteType": true
+      }
+    },
+    {
+      "id": "$journalCode",
+      "doc": "Receives QuickBooks journal code events: updated and created.",
+      "type": {
+        "name": "JournalCodeService"
+      },
+      "concrete": true,
+      "multipleListenersAllowed": true,
+      "handlers": {
+        "backedByConcreteType": true
+      }
+    },
+    {
+      "id": "$purchase",
+      "doc": "Receives QuickBooks purchase events: voided, updated, deleted, and created.",
+      "type": {
+        "name": "PurchaseService"
+      },
+      "concrete": true,
+      "multipleListenersAllowed": true,
+      "handlers": {
+        "backedByConcreteType": true
+      }
+    },
+    {
+      "id": "$vendorCredit",
+      "doc": "Receives QuickBooks vendor credit events: created, deleted, and updated.",
+      "type": {
+        "name": "VendorCreditService"
+      },
+      "concrete": true,
+      "multipleListenersAllowed": true,
+      "handlers": {
+        "backedByConcreteType": true
+      }
+    },
+    {
+      "id": "$term",
+      "doc": "Receives QuickBooks term events: created and updated.",
+      "type": {
+        "name": "TermService"
+      },
+      "concrete": true,
+      "multipleListenersAllowed": true,
+      "handlers": {
+        "backedByConcreteType": true
+      }
+    },
+    {
+      "id": "$vendor",
+      "doc": "Receives QuickBooks vendor events: updated, deleted, merged, and created.",
+      "type": {
+        "name": "VendorService"
+      },
+      "concrete": true,
+      "multipleListenersAllowed": true,
+      "handlers": {
+        "backedByConcreteType": true
+      }
+    },
+    {
+      "id": "$payment",
+      "doc": "Receives QuickBooks payment events: updated, emailed, voided, created, and deleted.",
+      "type": {
+        "name": "PaymentService"
+      },
+      "concrete": true,
+      "multipleListenersAllowed": true,
+      "handlers": {
+        "backedByConcreteType": true
+      }
+    },
+    {
+      "id": "$salesReceipt",
+      "doc": "Receives QuickBooks sales receipt events: created, deleted, voided, updated, and emailed.",
+      "type": {
+        "name": "SalesReceiptService"
+      },
+      "concrete": true,
+      "multipleListenersAllowed": true,
+      "handlers": {
+        "backedByConcreteType": true
+      }
+    },
+    {
+      "id": "$employee",
+      "doc": "Receives QuickBooks employee events: updated, merged, created, and deleted.",
+      "type": {
+        "name": "EmployeeService"
+      },
+      "concrete": true,
+      "multipleListenersAllowed": true,
+      "handlers": {
+        "backedByConcreteType": true
+      }
+    },
+    {
+      "id": "$changeOrder",
+      "doc": "Receives QuickBooks change order events: created, updated, and deleted.",
+      "type": {
+        "name": "ChangeOrderService"
+      },
+      "concrete": true,
+      "multipleListenersAllowed": true,
+      "handlers": {
+        "backedByConcreteType": true
+      }
+    },
+    {
+      "id": "$transfer",
+      "doc": "Receives QuickBooks transfer events: created, deleted, voided, and updated.",
+      "type": {
+        "name": "TransferService"
+      },
+      "concrete": true,
+      "multipleListenersAllowed": true,
+      "handlers": {
+        "backedByConcreteType": true
+      }
+    },
+    {
+      "id": "$bill",
+      "doc": "Receives QuickBooks bill events: updated, deleted, and created.",
+      "type": {
+        "name": "BillService"
+      },
+      "concrete": true,
+      "multipleListenersAllowed": true,
+      "handlers": {
+        "backedByConcreteType": true
+      }
+    },
+    {
+      "id": "$purchaseOrder",
+      "doc": "Receives QuickBooks purchase order events: deleted, created, updated, and emailed.",
+      "type": {
+        "name": "PurchaseOrderService"
+      },
+      "concrete": true,
+      "multipleListenersAllowed": true,
+      "handlers": {
+        "backedByConcreteType": true
+      }
+    },
+    {
+      "id": "$paymentMethod",
+      "doc": "Receives QuickBooks payment method events: updated, created, and merged.",
+      "type": {
+        "name": "PaymentMethodService"
+      },
+      "concrete": true,
+      "multipleListenersAllowed": true,
+      "handlers": {
+        "backedByConcreteType": true
+      }
+    },
+    {
+      "id": "$class",
+      "doc": "Receives QuickBooks class events: updated, deleted, created, and merged.",
+      "type": {
+        "name": "ClassService"
+      },
+      "concrete": true,
+      "multipleListenersAllowed": true,
+      "handlers": {
+        "backedByConcreteType": true
+      }
+    }
+  ]
+}
