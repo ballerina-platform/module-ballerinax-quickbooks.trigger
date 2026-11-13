@@ -358,9 +358,3 @@ modules = [
 	{org = "ballerinax", packageName = "quickbooks.trigger", moduleName = "quickbooks.trigger"}
 ]
 
-[[tool]]
-id = "asyncapi"
-org = "ballerina"
-name = "tool.asyncapi"
-version = "0.13.3"
-
